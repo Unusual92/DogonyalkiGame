@@ -5,12 +5,19 @@ using UnityEngine;
 public class SpeedBoost : MonoBehaviour
 {
     public PlayerControllerWASD Player;
-    
+    float speed = 20f;
 
     public float boostDuration = 5f;
     private MeshRenderer meshRenderer;
-  
-    
+
+
+    void Update()
+    {
+        // Вращение вокруг оси Y
+        transform.Rotate(Vector3.up, speed * Time.deltaTime);
+    }
+
+
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();

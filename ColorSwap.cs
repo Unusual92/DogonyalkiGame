@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorSwap : MonoBehaviour
+public class MaterialSwap : MonoBehaviour
 {
+    public bool isShielded = false;
     private Renderer thisRenderer;
 
     private void Start()
@@ -13,15 +12,15 @@ public class ColorSwap : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !isShielded)
         {
             Renderer collidedObjectRenderer = collision.gameObject.GetComponent<Renderer>();
 
             if (collidedObjectRenderer != null)
             {
-                Color tempColor = thisRenderer.material.color;
-                thisRenderer.material.color = collidedObjectRenderer.material.color;
-                collidedObjectRenderer.material.color = tempColor;
+                Material tempMaterial = thisRenderer.material;
+                thisRenderer.material = collidedObjectRenderer.material;
+                collidedObjectRenderer.material = tempMaterial;
             }
         }
     }

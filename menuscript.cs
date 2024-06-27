@@ -17,7 +17,7 @@ public class MenuScript : MonoBehaviour
 
     private void OnOfflineButtonClick()
     {
-        SceneManager.LoadScene("OfflineScene");
+       // SceneManager.LoadScene("OfflineScene");
     }
 
     private void OnOnlineButtonClick()
