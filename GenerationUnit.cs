@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SpawnObjects : MonoBehaviour
 {
-    public GameObject objectToSpawn; // The object to spawn
-    public int numberOfObjectsToSpawn; // The number of objects to spawn
+    public GameObject objectToSpawn; 
+    public int numberOfObjectsToSpawn; 
 
-    public GameObject objectToSpawn2; // The object to spawn
-    public int numberOfObjectsToSpawn2; // The number of objects to spawn
+    public GameObject objectToSpawn2; 
+    public int numberOfObjectsToSpawn2; 
 
     private Rigidbody rb;
 
@@ -16,41 +16,82 @@ public class SpawnObjects : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        // Generate the specified number of objects
+       
         for (int i = 0; i < numberOfObjectsToSpawn; i++)
         {
-            // Generate random x, y, and z coordinates
+           
             float x = Random.Range(0, 30);
             float y = 0.5f;
             float z = Random.Range(0, 30);
 
-            // Check if the point is outside the walls
-            while (Physics.CheckSphere(new Vector3(x, y, z), 0.1f))
+           
+            Collider[] hitColliders = Physics.OverlapSphere(new Vector3(x, y, z), 0.1f);
+            while (hitColliders.Length > 0)
             {
-                x = Random.Range(0, 30);
-                z = Random.Range(0, 30);
+                bool isFinish = false;
+                foreach (var hitCollider in hitColliders)
+                {
+                    if (hitCollider.gameObject.CompareTag("Finish"))
+                    {
+                        isFinish = true;
+                        break;
+                    }
+                }
+
+                if (isFinish)
+                {
+                    x = Random.Range(0, 30);
+                    z = Random.Range(0, 30);
+                    hitColliders = Physics.OverlapSphere(new Vector3(x, y, z), 0.1f);
+                }
+                else
+                {
+                    x = Random.Range(0, 30);
+                    z = Random.Range(0, 30);
+                }
             }
 
-            // Create a new object at the generated point
+           
             Instantiate(objectToSpawn, new Vector3(x, y, z), Quaternion.identity);
         }
 
         for (int i = 0; i < numberOfObjectsToSpawn2; i++)
         {
-            // Generate random x, y, and z coordinates
+            
             float x = Random.Range(0, 30);
             float y = 0.5f;
             float z = Random.Range(0, 30);
 
-            // Check if the point is outside the walls
-            while (Physics.CheckSphere(new Vector3(x, y, z), 0.1f))
+            
+            Collider[] hitColliders = Physics.OverlapSphere(new Vector3(x, y, z), 0.1f);
+            while (hitColliders.Length > 0)
             {
-                x = Random.Range(0, 30);
-                z = Random.Range(0, 30);
+                bool isFinish = false;
+                foreach (var hitCollider in hitColliders)
+                {
+                    if (hitCollider.gameObject.CompareTag("Finish"))
+                    {
+                        isFinish = true;
+                        break;
+                    }
+                }
+
+                if (isFinish)
+                {
+                    x = Random.Range(0, 30);
+                    z = Random.Range(0, 30);
+                    hitColliders = Physics.OverlapSphere(new Vector3(x, y, z), 0.1f);
+                }
+                else
+                {
+                    x = Random.Range(0, 30);
+                    z = Random.Range(0, 30);
+                }
             }
 
-            // Create a new object at the generated point
+          
             Instantiate(objectToSpawn2, new Vector3(x, y, z), Quaternion.identity);
         }
     }
+
 }
